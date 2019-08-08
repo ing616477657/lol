@@ -1,12 +1,11 @@
 <template>
-  <div class="cap">
-    <div class="capDoor">111</div>
+  <div class="register">
   </div>
 </template>
 
 <script>
 export default {
-  name: 'cap',
+  name: 'register',
   // props: {
   //   msg: String
   // }

@@ -13,21 +13,19 @@
 </template>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+*{margin:0;padding:0;border:none;outline:none;text-decoration:none;font-size:14px;}
+ol,li,ul{list-style:none;}
+text{cursor:default;user-select:none;-webkit-user-select: none}
+select,input,button{}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0;
 }
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+a:hover{text-decoration:none;}
+svg{width:16px;height:16px;fill:#9254de;}
+img[src=''],img:not([src]){opacity:0;}
+img {border:none;}
+button{cursor: pointer;}
+a:hover {cursor:pointer;}
 </style>
