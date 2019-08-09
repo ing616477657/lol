@@ -45,7 +45,13 @@ export default {
   		// 	name:'dingming',
   		// 	login:true
   		// })
-  		console.log(this.axios)
+  		// process.env.VUE_APP_URL
+  		this.axios.get(process.env.VUE_APP_URL+'/api/loaclDate')
+		  .then(res => {
+		    console.log(res)
+		  }, res => {
+		    console.log(res)
+		  })
   	},
   	goRe(){
   		this.$store.dispatch("cmtLogOrReg")
