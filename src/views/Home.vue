@@ -8,6 +8,7 @@
     <!-- <HelloWorld msg="Welcome to Your Vue.js App1"/> -->
     <cap />
     <login />
+    <register />
   </div>
 </template>
 

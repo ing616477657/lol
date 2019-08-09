@@ -6,10 +6,13 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
   	count:1,
+    // 是否登陆
     login:{
       name:null,
       login:false
-    }
+    },
+    // 登陆/注册窗口状态
+    logOrReg:true
   },
   mutations: {
   	addCount(state){
@@ -20,6 +23,10 @@ export default new Vuex.Store({
   	},
     setLogin(state,data){
       state.login = data
+    },
+    // 切换登陆注册窗口状态
+    setLogOrReg(state){
+      state.logOrReg = !state.logOrReg
     }
   },
   actions: {
@@ -31,6 +38,9 @@ export default new Vuex.Store({
   	},
     getLogin(context,data){
       context.commit('setLogin',data)
+    },
+    cmtLogOrReg(context){
+      context.commit('setLogOrReg')
     }
   },
   getters:{

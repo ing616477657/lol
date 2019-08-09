@@ -1,9 +1,10 @@
 <template>
   <div class="login">
-    <div class="logins" v-if="logins">
+    <div :class='{hide:hide}' class="logins" v-if="logins">
 	  	<input v-model="username" placeholder="账号">
 	  	<input v-model="password" placeholder="账号">
-	  	<button @click='login'>登录</button>
+	  	<button class="login" @click='login'>登录</button>
+	  	<button class="register" @click='goRe'>注册</button>
     </div>
   </div>
 </template>
@@ -18,7 +19,8 @@ export default {
 	return {
 	   username: null,
 	   password:null,
-	   logins:true
+	   logins:true,
+	   // hide:false
 	}
   },
   methods:{
@@ -35,14 +37,28 @@ export default {
   			name:'dingming',
   			login:true
   		})
+  	},
+  	goRe(){
+  		this.$store.dispatch("cmtLogOrReg")
   	}
   },
+  computed: {
+	hide () {
+		// 通过计算属性改变状态添加动画class
+		return !this.$store.state.logOrReg
+	}
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+div.hide {
+	transform: scale(0);
+}
 .logins {
+	transition: all 0.3s;
+	transform: scale(1);
 	position: fixed;
 	width: 580px;
 	height: 400px;
@@ -77,7 +93,7 @@ export default {
 	input:nth-child(1) {
 		margin-top:50px;
 	}
-	button {
+	button.login {
 		font-size: 36px;
 		width: 500px;
 		height: 80px;
@@ -87,6 +103,21 @@ export default {
 		border-radius:5px;
 		text-align: center;
 		line-height: 80px;
+	}
+	button.register {
+		position: absolute;
+		right:0px;
+		bottom:-90px;
+		font-size: 36px;
+		width: 120px;
+		height: 80px;
+		display: block;
+		margin:0 auto;
+		background: rgba(0,0,0,0.6);
+		border-radius:5px;
+		text-align: center;
+		line-height: 80px;
+		color:#fff;
 	}
 }
 </style>

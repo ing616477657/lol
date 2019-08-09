@@ -26,6 +26,7 @@ export default {
   },
   watch:{
   	door (newVal, oldVal){
+  		// 通过计算属性计算状态，再通过监听属性监听状态的改变然后之行逻辑
   		// 监听计算后的store状态,进行逻辑处理
   		// console.log(this.$store.state.login.login)
   		var lt = document.getElementById('lts');
