@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import pop from "../../public/jsPopup/popup.js"
 export default {
   name: 'register',
   // props: {
@@ -46,12 +47,14 @@ export default {
   		// 	login:true
   		// })
   		// process.env.VUE_APP_URL
-  		this.axios.get(process.env.VUE_APP_URL+'/api/loaclDate')
-		  .then(res => {
-		    console.log(res)
-		  }, res => {
-		    console.log(res)
-		  })
+  		var pops =  new pop.Popup();
+  		// pops.toast('请填写正确邮箱',3);
+  		// this.axios.get(process.env.VUE_APP_URL+'/api/loaclDate')
+		  // .then(res => {
+		  //   console.log(res)
+		  // }, res => {
+		  //   console.log(res)
+		  // })
   	},
   	goRe(){
   		this.$store.dispatch("cmtLogOrReg")
@@ -68,6 +71,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+@import "../../public/jsPopup/popup.css";
 div.hide {
 	transform: scale(0);
 }
@@ -81,7 +85,7 @@ div.hide {
 	border-radius: 10px;
 	top:calc((100% - 730px)/2);
 	left:calc((100% - 580px)/2);
-	z-index: 99;
+	z-index: 9;
 	input {
 		padding-left:20px;
 		font-size: 28px;
