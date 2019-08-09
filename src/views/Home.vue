@@ -27,6 +27,9 @@ export default {
   	login
     // HelloWorld
   },
+  created: function () {
+    // this.$store.dispatch("cmtLogOrReg")
+  },
   methods:{
   	add(){
   		this.$store.dispatch("add")

@@ -5,8 +5,8 @@
 	  	<input v-model="users.username" placeholder="账号">
 	  	<input v-model="users.password" placeholder="密码">
 	  	<input v-model="users.email" placeholder="邮箱">
-	  	<input class="emailcode" v-model="users.email" placeholder="验证码">
-	  	<button class="getCoce">获取验证码</button>
+	  	<input class="emailcode" v-model="users.emailCode" placeholder="验证码">
+	  	<button class="getCoce" @click='getCode'>{{getCodeTxt}}</button>
 	  	<button class="login" @click='login'>注册</button>
 	  	<button class="register" @click='goRe'>登陆</button>
     </div>
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+// 引入第三方插件需要更改插件js抛出插件对象
 import pop from "../../public/jsPopup/popup.js"
 export default {
   name: 'register',
@@ -27,10 +28,16 @@ export default {
 	   	  _name:null,
 	   	  username: null,
 		  password:null,
-		  email:null
+		  email:null,
+		  emailCode:null,
 	   },
 	   logins:true,
+	   getCodeTxt:'获取验证码',
+	   getCodeCk:0
 	}
+  },
+  created: function () {
+
   },
   methods:{
   	add(){
@@ -48,16 +55,69 @@ export default {
   		// })
   		// process.env.VUE_APP_URL
   		var pops =  new pop.Popup();
-  		// pops.toast('请填写正确邮箱',3);
-  		// this.axios.get(process.env.VUE_APP_URL+'/api/loaclDate')
-		  // .then(res => {
-		  //   console.log(res)
-		  // }, res => {
-		  //   console.log(res)
-		  // })
+		var msg = {
+			_name:"昵称",
+	   	  username: "账号",
+		  password:"密码",
+		  email:"邮箱",
+		  emailCode:"验证码",
+		}
+  		for(var i in this.users){
+  			if(this.users[i]===''||this.users[i]===null){
+  				pops.toast('请填写'+msg[i],3);
+  				return;
+  			}
+  		}
+  		this.axios.post(process.env.VUE_APP_URL+'register',this.users)
+		  .then(res => {
+		    console.log(res)
+		  }, res => {
+		    console.log(res)
+		  })
   	},
   	goRe(){
   		this.$store.dispatch("cmtLogOrReg")
+  	},
+  	getCode(){
+  		var time;
+  		var pops =  new pop.Popup();
+  		if(this.getCodeCk>0) {
+  			pops.toast('60秒内只能发送一次',2);
+  			return;
+  		};
+  		this.getCodeCk++
+  		var obj = {email:this.users.email}
+		var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+		if(reg.test(obj.email)){
+			this.getCodeTxt = "发送中..."
+			this.axios.post(process.env.VUE_APP_URL+'emails',obj)
+		  .then(res => {
+		    console.log(res)
+		    if(res.data.success==='success'){
+		    	pops.toast(res.data.message,2);
+		    }
+		  }, res => {
+		    console.log(res)
+		  })
+		  var _this =this;
+		  time = 61;
+		  setBtn()
+		  function setBtn(){
+		  	 var t = setTimeout(function(){
+		  		if(time>0){
+		  			time--
+		  			_this.getCodeTxt = time
+		  			setBtn()
+		  		} else {
+		  			_this.getCodeTxt = "获取验证码"
+		  			_this.getCodeCk = 0
+		  			clearTimeout(t)
+		  		}
+		    },1000)
+		  }
+		}else{
+			pops.toast('请填写正确的邮箱号',2);
+		}
   	}
   },
   computed: {
@@ -71,6 +131,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+// 引入第三方插件css
 @import "../../public/jsPopup/popup.css";
 div.hide {
 	transform: scale(0);
