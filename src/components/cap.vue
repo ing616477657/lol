@@ -1,8 +1,8 @@
 <template>
   <div class="cap">
     <div class="capDoor" >
-    	<div id="lt" class="lt"><img alt="Vue logo" src="../assets/capDoorL.jpg"></div>
-    	<div id="rt" class="rt"><img alt="Vue logo" src="../assets/capDoorR.jpg"></div>
+    	<div id="lts" class="lt"><img alt="Vue logo" src="../assets/capDoorL.jpg"></div>
+    	<div id="rts" class="rt"><img alt="Vue logo" src="../assets/capDoorR.jpg"></div>
     </div>
   </div>
 </template>
@@ -28,8 +28,8 @@ export default {
   	door (newVal, oldVal){
   		// 监听计算后的store状态,进行逻辑处理
   		// console.log(this.$store.state.login.login)
-  		var lt = document.getElementById('lt');
-  		var rt = document.getElementById('rt');
+  		var lt = document.getElementById('lts');
+  		var rt = document.getElementById('rts');
   		lt.style.marginLeft='-500px'
   		rt.style.marginRight='-500px'
   		// this.openDoor = this.$store.state.login.login
@@ -44,24 +44,23 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .capDoor {
-	width: calc(100vW);
-	height: calc(100vH);
+	width: 100vW;
+	height: 100vH;
 	overflow: hidden;
 	.lt {
 		width: 50%;
-		height: calc(100vH);
+		height: 100vH;
 		float:left;
 		transition:all 1s;
 		img {
 			float:right;
-			// margin-right: -1px;
 			display: block;
 			width: 100%;
 		}
 	}
 	.rt {
 		width: 50%;
-		height: calc(100vH);
+		height: 100vH;
 		float:right;
 		transition:all 1s;
 		img {

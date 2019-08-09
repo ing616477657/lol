@@ -48,8 +48,8 @@ export default {
 	height: 400px;
 	background: rgba(0,0,0,0.7);
 	border-radius: 10px;
-	top:calc((100vH - 400px)/2);
-	left:calc((100vW - 580px)/2);
+	top:calc((100% - 400px)/2);
+	left:calc((100% - 580px)/2);
 	z-index: 99;
 	input {
 		padding-left:20px;

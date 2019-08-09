@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <!-- <div id="header">
+    <div id="header">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
-    </div> -->
+      <router-link to="/about1">About1</router-link>
+      <router-link to="/about2">About2</router-link>
+    </div>
     <router-view/>
     <!-- <div id="footer">
       <router-link to="/">Home</router-link> |

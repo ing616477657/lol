@@ -1,6 +1,6 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div class="about2">
+    <h1>222222222-------11111111111111111</h1>
 <!--     <cap />
     <register />
     <login /> -->
@@ -11,7 +11,7 @@
 	// import login from '@/components/login.vue'
 	// import register from '@/components/register.vue'
 export default {
-  name: 'about',
+  name: 'about2-1',
   components: {
   	// cap,
   	// register,

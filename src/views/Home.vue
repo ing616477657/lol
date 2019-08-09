@@ -38,8 +38,8 @@ export default {
 </script>
 <style scoped lang="scss">
 .home {
-	width: calc(100vW);
-	height: calc(100vH);
+	width: 100vW;
+	height: 100vH;
 	background: #000;
 }
 </style>
