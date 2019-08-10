@@ -20,8 +20,8 @@ export default {
   data: function () {
 	return {
 	   users:{
-		   username: 'dingming',
-		   password:'dingming',
+		   username: '',
+		   password:'',
 		},
 	   logins:true,
 	   // hide:false
