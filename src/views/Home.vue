@@ -6,6 +6,7 @@
     <button @click='reduce'>reduce</button> -->
   	<!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App1"/> -->
+    <equip />
     <cap />
     <login />
     <register />
@@ -18,14 +19,22 @@
 import cap from '@/components/cap.vue'
 import login from '@/components/login.vue'
 import register from '@/components/register.vue'
+import equip from '@/components/equip.vue'
+
 
 export default {
   name: 'home',
   components: {
   	cap,
   	register,
-  	login
+  	login,
+    equip
     // HelloWorld
+  },
+  beforeCreate () {
+    // if(){
+
+    // }
   },
   created: function () {
     // this.$store.dispatch("cmtLogOrReg")
@@ -43,7 +52,7 @@ export default {
 <style scoped lang="scss">
 .home {
 	width: 100vW;
-	height: 100vH;
-	background: #000;
+	min-height: calc(100vH - 120px);
+	background: #f6f6f6;
 }
 </style>

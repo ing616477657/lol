@@ -1,11 +1,11 @@
 <template>
   <div class="register">
     <div :class='{hide:hide}' class="logins" v-if="logins">
-	  	<input v-model="users._name" placeholder="昵称">
-	  	<input v-model="users.username" placeholder="账号">
-	  	<input v-model="users.password" placeholder="密码">
-	  	<input v-model="users.email" placeholder="邮箱">
-	  	<input class="emailcode" v-model="users.emailCode" placeholder="验证码">
+	  	<input v-model.trim="users._name" placeholder="昵称">
+	  	<input v-model.trim="users.username" placeholder="账号">
+	  	<input type="password" v-model.trim="users.password" placeholder="密码">
+	  	<input v-model.trim="users.email" placeholder="邮箱">
+	  	<input class="emailcode" v-model.trim="users.emailCode" placeholder="验证码">
 	  	<button class="getCoce" @click='getCode'>{{getCodeTxt}}</button>
 	  	<button class="login" @click='login'>注册</button>
 	  	<button class="register" @click='goRe'>登陆</button>
@@ -47,6 +47,7 @@ export default {
   		this.$store.dispatch("reduce",2)
   	},
   	login(){
+  		var _this = this;
   		// // console.log(this.$store.state.login)
   		// this.logins= false
   		// this.$store.dispatch("getLogin",{
@@ -64,13 +65,22 @@ export default {
 		}
   		for(var i in this.users){
   			if(this.users[i]===''||this.users[i]===null){
-  				pops.toast('请填写'+msg[i],3);
+  				pops.toast('请填写'+msg[i],1);
   				return;
   			}
   		}
   		this.axios.post(process.env.VUE_APP_URL+'register',this.users)
 		  .then(res => {
 		    console.log(res)
+		    if(res.data.success==='error'){
+		    	pops.toast(res.data.message,1);
+		    }
+		    if(res.data.success==='success'){
+		    	pops.toast(res.data.message,1);
+		    	setTimeout(function(){
+		    		_this.$store.dispatch("cmtLogOrReg")
+		    	},1000)
+		    }
 		  }, res => {
 		    console.log(res)
 		  })
@@ -79,10 +89,9 @@ export default {
   		this.$store.dispatch("cmtLogOrReg")
   	},
   	getCode(){
-  		var time;
   		var pops =  new pop.Popup();
   		if(this.getCodeCk>0) {
-  			pops.toast('60秒内只能发送一次',2);
+  			pops.toast('60秒内只能发送一次',1);
   			return;
   		};
   		this.getCodeCk++
@@ -94,13 +103,13 @@ export default {
 		  .then(res => {
 		    console.log(res)
 		    if(res.data.success==='success'){
-		    	pops.toast(res.data.message,2);
+		    	pops.toast(res.data.message,1);
 		    }
 		  }, res => {
 		    console.log(res)
 		  })
 		  var _this =this;
-		  time = 61;
+		  var time = 61;
 		  setBtn()
 		  function setBtn(){
 		  	 var t = setTimeout(function(){
@@ -111,12 +120,13 @@ export default {
 		  		} else {
 		  			_this.getCodeTxt = "获取验证码"
 		  			_this.getCodeCk = 0
+		  			time = 61
 		  			clearTimeout(t)
 		  		}
 		    },1000)
 		  }
 		}else{
-			pops.toast('请填写正确的邮箱号',2);
+			pops.toast('请填写正确的邮箱号',1);
 		}
   	}
   },

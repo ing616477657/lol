@@ -1,8 +1,8 @@
 <template>
   <div class="login">
-    <div :class='{hide:hide}' class="logins" v-if="logins">
-	  	<input v-model="username" placeholder="账号">
-	  	<input v-model="password" placeholder="账号">
+    <div :class='{hide:hide,loginIn:loginIn}' class="logins" v-if="logins">
+	  	<input v-model.trim="users.username" placeholder="账号">
+	  	<input type="password" v-model.trim="users.password" placeholder="密码">
 	  	<button class="login" @click='login'>登录</button>
 	  	<button class="register" @click='goRe'>注册</button>
     </div>
@@ -10,6 +10,8 @@
 </template>
 
 <script>
+// 引入第三方插件需要更改插件js抛出插件对象
+import pop from "../../public/jsPopup/popup.js"
 export default {
   name: 'login',
   // props: {
@@ -17,8 +19,10 @@ export default {
   // }
   data: function () {
 	return {
-	   username: null,
-	   password:null,
+	   users:{
+		   username: 'dingming',
+		   password:'dingming',
+		},
 	   logins:true,
 	   // hide:false
 	}
@@ -31,12 +35,75 @@ export default {
   		this.$store.dispatch("reduce",2)
   	},
   	login(){
+  		var _this = this;
   		// console.log(this.$store.state.login)
-  		this.logins= false
-  		this.$store.dispatch("getLogin",{
-  			name:'dingming',
-  			login:true
-  		})
+  		var pops =  new pop.Popup();
+		var msg = {
+	   	  username: "账号",
+		  password:"密码",
+		}
+		for(var i in this.users){
+  			if(this.users[i]===''||this.users[i]===null){
+  				pops.toast('请填写'+msg[i],1);
+  				return;
+  			}
+  		}
+  		this.axios.post(process.env.VUE_APP_URL+'login',this.users)
+	    .then(res => {
+	       // console.log(res)
+	       if(res.data.success==='error'){
+	    	 pops.toast(res.data.message,1);
+	       }
+	       if(res.data.success==='success'){
+	    	pops.toast(res.data.message,1);
+	        this.logins= false
+	        var _lvs = ['倔强黑铁','不屈白银','荣耀黄金','霸气铂金','傲视钻石','无敌大师','最强王者']
+	        var _lvss = [10,100,500,1000,2000,4000,10000,]
+	        var dlv;
+	        for(var i in _lvss){
+	        	if(res.data.data.lvs<_lvss[i]){
+	        		dlv = i
+	        		break;
+	        	}
+	        }
+	        var llvs;
+	        if(res.data.data.addLv){
+	        	 llvs = res.data.data.lvs-2
+	        }else{
+	        	 llvs = res.data.data.lvs
+	        }
+	    	setTimeout(function(){
+	    		_this.$store.dispatch("getLogin",{
+		    		name:res.data.data._name,
+		    		login:true,
+		    		token:res.data.data.token,
+		    		lv:_lvs[dlv],
+		    		lvs:llvs,
+		    		_lvss:_lvss[dlv]
+		    	})
+		    	window.localStorage.setItem('user',JSON.stringify({
+		    		name:res.data.data._name,
+		    		login:true,
+		    		token:res.data.data.token,
+		    		lv:_lvs[dlv],
+		    		lvs:llvs,
+		    		_lvss:_lvss[dlv]
+		    	}))
+		    	setTimeout(function(){
+		    		_this.$store.dispatch("cmAddLv",res.data.data.addLv)
+		    		if(res.data.data.addLv){
+		    			_this.$store.dispatch("cmLvs",2)
+		    		}
+	                setTimeout(function(){
+	                  _this.$store.dispatch("cmAddLv",false)
+	                },1000)
+		    	},500)
+	    	},1000)
+	    	// console.log(this.$store.state.login)
+	    }
+	    }, res => {
+	       console.log(res)
+	    })
   	},
   	goRe(){
   		this.$store.dispatch("cmtLogOrReg")
@@ -46,6 +113,9 @@ export default {
 	hide () {
 		// 通过计算属性改变状态添加动画class
 		return !this.$store.state.logOrReg
+	},
+	loginIn(){
+		return this.$store.state.login.login
 	}
   }
 }
@@ -53,7 +123,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+// 引入第三方插件css
+@import "../../public/jsPopup/popup.css";
 div.hide {
+	transform: scale(0);
+}
+div.loginIn {
 	transform: scale(0);
 }
 .logins {

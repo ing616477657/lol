@@ -9,8 +9,14 @@ export default new Vuex.Store({
     // 是否登陆
     login:{
       name:null,
-      login:false
+      login:false,
+      token:null,
+      lv:null,
+      lvs:null,
+      _lvss:null
     },
+    // 经验值变动
+    addLv:false,
     // 登陆/注册窗口状态
     logOrReg:true
   },
@@ -27,6 +33,13 @@ export default new Vuex.Store({
     // 切换登陆注册窗口状态
     setLogOrReg(state){
       state.logOrReg = !state.logOrReg
+    },
+    // 设置增加经验值
+    setAddLv(state,style){
+      state.addLv = style
+    },
+    setLvs(state,num){
+      state.login.lvs +=num
     }
   },
   actions: {
@@ -41,6 +54,12 @@ export default new Vuex.Store({
     },
     cmtLogOrReg(context){
       context.commit('setLogOrReg')
+    },
+    cmAddLv(context,style){
+      context.commit('setAddLv',style)
+    },
+    cmLvs(context,num){
+      context.commit('setLvs',num)
     }
   },
   getters:{
