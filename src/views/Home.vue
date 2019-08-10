@@ -51,8 +51,9 @@ export default {
 </script>
 <style scoped lang="scss">
 .home {
-	width: 100vW;
-	min-height: calc(100vH - 120px);
+  // 计算属性窗vw/vh要小写
+	width: 100vw;
+	min-height: calc(100vh - 120px);
 	background: #f6f6f6;
 }
 </style>
