@@ -6,7 +6,7 @@
       <router-link to="/about1">About1</router-link>
       <router-link to="/about2">About2</router-link>
     </div> -->
-    <userInfo />
+    <userInfo v-if='this.$store.state.login.login'/>
     <router-view/>
     <!-- <div id="footer">
       <router-link to="/">Home</router-link> |

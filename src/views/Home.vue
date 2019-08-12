@@ -6,7 +6,7 @@
     <button @click='reduce'>reduce</button> -->
   	<!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App1"/> -->
-    <equip />
+    <equip v-if='this.$store.state.login.login'/>
     <cap />
     <login />
     <register />
