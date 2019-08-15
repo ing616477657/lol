@@ -37,7 +37,7 @@
         }
         this.axios.post(process.env.VUE_APP_URL+'login',_users)
           .then(res => {
-             console.log(res)
+             // console.log(res)
              if(res.data.success==='error'){
               // pops.toast(res.data.message,1);
                 if(!res.data.data.tokens){

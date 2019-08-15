@@ -44,6 +44,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 header {
+	position: fixed;
+	top:0px;
+	left:0px;
+	width: 100%;
 	height: 120px;
 	padding-left:30px;
 	background: #ff8e8e;

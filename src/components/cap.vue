@@ -1,9 +1,9 @@
 <template>
   <div class="cap">
-    <div class="capDoor" >
+    <!-- <div class="capDoor" > -->
     	<div :class='{ltM:ltM}' class="lt"><img alt="Vue logo" src="../assets/capDoorL.jpg"></div>
     	<div :class='{rtM:rtM}' class="rt"><img alt="Vue logo" src="../assets/capDoorR.jpg"></div>
-    </div>
+    <!-- </div> -->
   </div>
 </template>
 
@@ -47,41 +47,38 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.capDoor {
-	width: 100vW;
+.lt {
+	width: 50%;
 	height: 100vH;
-	overflow: hidden;
-	position: fixed;
+	position:fixed;
 	top:0px;
 	left:0px;
-	z-index: 8;
-	.lt {
-		width: 50%;
-		height: 100vH;
-		float:left;
-		transition:all 1s;
-		img {
-			float:right;
-			display: block;
-			width: 100%;
-		}
-	}
-	.rt {
-		width: 50%;
-		height: 100vH;
+	transition:all 1s;
+	z-index: 99;
+	img {
 		float:right;
-		transition:all 1s;
-		img {
-			float:left;
-			display: block;
-			width: 100%;
-		}
+		display: block;
+		width: 100%;
 	}
-	.ltM {
-		margin-left:-500px;
+}
+.rt {
+	width: 50%;
+	height: 100vH;
+	position: fixed;
+	top:0px;
+	right:0px;
+	z-index: 99;
+	transition:all 1s;
+	img {
+		float:left;
+		display: block;
+		width: 100%;
 	}
-	.rtM {
-		margin-right:-500px;
-	}
+}
+.ltM {
+	left:-500px;
+}
+.rtM {
+	right:-500px;
 }
 </style>

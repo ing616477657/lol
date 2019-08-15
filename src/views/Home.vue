@@ -24,6 +24,11 @@ import equip from '@/components/equip.vue'
 
 export default {
   name: 'home',
+  // data:function(){
+  //   return {
+  //     show
+  //   }
+  // }
   components: {
   	cap,
   	register,

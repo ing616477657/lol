@@ -156,7 +156,7 @@ div.hide {
 	border-radius: 10px;
 	top:calc((100% - 730px)/2);
 	left:calc((100% - 580px)/2);
-	z-index: 9;
+	z-index: 999;
 	input {
 		padding-left:20px;
 		font-size: 28px;
