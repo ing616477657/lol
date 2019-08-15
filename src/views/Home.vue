@@ -58,7 +58,7 @@ export default {
 .home {
   // 计算属性窗vw/vh要小写
 	width: 100vw;
-	min-height: calc(100vh - 120px);
+	min-height: 100vh;
 	background: #f6f6f6;
 }
 </style>

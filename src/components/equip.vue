@@ -1,12 +1,15 @@
 <!-- 装备 -->
 <template>
-  <div class="equip">
-    <div class="info">
+  <div class="equip" >
+    <div class="loading" v-show='!load'>
+      数据加载中ing......
+    </div>
+    <div class="info" v-show='load'>
       <h6>{{name}}</h6>
       <p>{{property}}</p>
       <p class="p1">{{special}}</p>
     </div>
-    <div class="allEquip" id="equips">
+    <div class="allEquip" id="equips" v-show='load'>
       <div   v-for='item in equipOne'>
         <img  :src="item.src" @click='seteq($event)'  data-tag='0' :data-property='item.property' :data-name='item.name' :data-idx='item.number'>
         <span>X2</span>
@@ -31,6 +34,7 @@ export default {
        name:'装备名称',
        property:'属性',
        special:'特性',
+       load:false
   	}
   },
   beforeCreate(){
@@ -43,6 +47,23 @@ export default {
       }, res => {
         console.log(res)
       })
+  },
+  updated(){
+    var _this =this;
+     var load = 0;
+     var imgs = $('.allEquip img');
+     for(let i=0;i<imgs.length;i++){
+        var img = new Image;
+        img.src = $(imgs[i]).attr('src')
+        img.onload = function(){
+          load++
+          // console.log(load,imgs.length)
+          if(load==imgs.length){
+
+            _this.load = true;
+          }
+        }
+      }
   },
   created () {
   },
@@ -101,6 +122,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+div.loading {
+    padding-top:600px;
+    font-size:42px;
+    text-align: center;
+}
 .info {
     background: #f6f6f6;
     position: fixed;
