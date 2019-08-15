@@ -9,6 +9,7 @@
     <div class="allEquip" id="equips">
       <div   v-for='item in equipOne'>
         <img  :src="item.src" @click='seteq($event)'  data-tag='0' :data-property='item.property' :data-name='item.name' :data-idx='item.number'>
+        <span>X2</span>
       </div>
       <div v-for='item in equipTwo' >
         <img  :src="item.src" @click='seteq($event)' :data-property='item.property' :data-name='item.name' :data-special='item.special' data-tag='1' :data-gpl='item.number[0]' :data-gpr='item.number[1]'>
@@ -58,6 +59,7 @@ export default {
       var divs = $('#equips').find('div img');
       divs.each(function(i,v){
         $(v).parent().removeClass('choice')
+        $(v).parent().removeClass('spans')
       })
       if( e.target.dataset.tag==0){
         divs.each(function(i,v){
@@ -67,6 +69,9 @@ export default {
               $(v).parent().addClass('choice')
             }
           }
+          if($(v).attr('data-tag')==0&&$(v).attr('data-idx')==number){
+            $(v).parent().addClass('choice')
+          }
         })
       }
       if( e.target.dataset.tag==1){
@@ -75,8 +80,14 @@ export default {
           if($(v).attr('data-tag')==0){
             // console.log($(v).attr('data-gpl'),number)
             if($(v).attr('data-idx')==gpr||$(v).attr('data-idx')==gpl){
+              if(gpr==gpl){
+                $(v).parent().addClass('spans')
+              }
               $(v).parent().addClass('choice')
             }
+          }
+          if($(v).attr('data-tag')==1&&$(v).attr('data-gpr')==gpr&&$(v).attr('data-gpl')==gpl){
+              $(v).parent().addClass('choice')
           }
         })
       }
@@ -118,7 +129,7 @@ export default {
     }
 }
 .allEquip {
-  padding-top:340px;
+  padding-top:350px;
   min-height: calc(100vh - 300px);
   overflow: hidden;
   overflow-y: scroll;
@@ -129,6 +140,7 @@ export default {
     clear:both;
   }
   div {
+    position: relative;
     transition: all 0.5s;
     float:left;
     margin-left:30px;
@@ -142,9 +154,25 @@ export default {
       height: 100%;
       display: block;
     }
+    span {
+      font-size:30px;
+      font-weight: bold;
+      color:#000;
+      position: absolute;
+      top:-20px;
+      right:0px;
+      display: none;
+      z-index: 99;
+    }
+  }
+  div.spans {
+    span {
+      display: block;
+    }
   }
   div.choice {
-    transform: scale(1.4);
+    box-shadow: 5px 5px 20px 2px red;
+    transform: scale(1.3);
     img {
       width: calc(100% - 5px);
       height: calc(100% - 5px);
